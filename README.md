@@ -49,13 +49,25 @@ Proses ini akan membuat salinan repositori `LAB-AP-9-2026` ke dalam akun GitHub 
 
 ### 2. Clone Repositori
 
-Buka Terminal atau Git Bash, kemudian clone repositori hasil fork yang berada di akun GitHub-mu.
+Setelah melakukan fork, buka repositori hasil fork di akun GitHub-mu.
+
+1. Klik tombol hijau **`<> Code`**.
+2. Pilih tab **HTTPS**.
+3. Klik ikon **Copy** untuk menyalin URL repositori.
+4. Buka Terminal atau Git Bash di laptop.
+5. Jalankan perintah berikut:
 
 ```bash
-git clone https://github.com/<USERNAME_KAMU>/LAB-AP-9-2026.git
+git clone URL_YANG_SUDAH_DISALIN
 ```
 
-Ganti `<USERNAME_KAMU>` dengan username GitHub masing-masing.
+Contoh:
+
+```bash
+git clone https://github.com/USERNAME_KAMU/LAB-AP-9-2026.git
+```
+
+URL tersebut akan berbeda sesuai username GitHub masing-masing.
 
 ### 3. Buat Branch Sesuai NIM
 
