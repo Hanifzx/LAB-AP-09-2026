@@ -1,6 +1,6 @@
 # Repositori Tugas Praktikum Algoritma dan Pemrograman 2026 (LAB-AP-9-2026)
 
-Selamat datang di repositori resmi **LAB-AP-9-2026**!
+Selamat datang di repositori resmi **LAB-AP-09-2026**!
 
 Repositori ini digunakan sebagai tempat pengumpulan tugas praktikum untuk mata kuliah **Algoritma dan Pemrograman tahun 2026**.
 
@@ -45,7 +45,7 @@ Fork → Clone → Buat Branch → Buat Folder → Kerjakan Tugas → Commit →
 
 Di sudut kanan atas halaman repositori, klik tombol **Fork**.
 
-Proses ini akan membuat salinan repositori `LAB-AP-9-2026` ke dalam akun GitHub pribadimu.
+Proses ini akan membuat salinan repositori `LAB-AP-09-2026` ke dalam akun GitHub pribadimu.
 
 ### 2. Clone Repositori
 
@@ -64,7 +64,7 @@ git clone URL_YANG_SUDAH_DISALIN
 Contoh:
 
 ```bash
-git clone https://github.com/USERNAME_KAMU/LAB-AP-9-2026.git
+git clone https://github.com/USERNAME_KAMU/LAB-AP-09-2026.git
 ```
 
 URL tersebut akan berbeda sesuai username GitHub masing-masing.
@@ -74,7 +74,7 @@ URL tersebut akan berbeda sesuai username GitHub masing-masing.
 Masuk ke dalam folder repositori yang baru saja di-clone, kemudian buat branch baru menggunakan NIM masing-masing.
 
 ```bash
-cd LAB-AP-9-2026
+cd LAB-AP-09-2026
 git checkout -b H071261xxx
 ```
 
@@ -96,7 +96,7 @@ cd Praktikum-1
 Struktur folder yang dihasilkan:
 
 ```text
-LAB-AP-9-2026/
+LAB-AP-09-2026/
 └── H071261xxx/
     └── Praktikum-1/
 ```
@@ -119,9 +119,9 @@ Contoh:
 TP1_H071261xxx.py
 ```
 
-Format tersebut digunakan apabila dalam satu Tugas Praktikum hanya terdapat satu soal atau satu file program.
+Format tersebut digunakan apabila dalam satu Tugas Praktikum hanya terdapat satu soal atau program.
 
-Jika dalam satu Tugas Praktikum terdapat beberapa soal yang harus dikerjakan secara terpisah, tambahkan nomor soal setelah nomor praktikum:
+Jika dalam satu Tugas Praktikum terdapat beberapa soal yang harus dikerjakan secara file terpisah, tambahkan nomor soal setelah nomor praktikum:
 
 ```text
 TP<n>_<noSoal>_<NIM>.py
@@ -207,7 +207,7 @@ Setelah melakukan push, buka kembali repositori hasil fork di GitHub.
 
 Biasanya akan muncul notifikasi **Compare & pull request**.
 
-Klik tombol tersebut untuk membuat **Pull Request** dari branch NIM-mu menuju repositori utama `LAB-AP-9-2026`.
+Klik tombol tersebut untuk membuat **Pull Request** dari branch NIM-mu menuju repositori utama `LAB-AP-09-2026`.
 
 Pull Request akan digunakan oleh asisten untuk memeriksa dan menilai tugas yang telah dikumpulkan.
 
@@ -218,7 +218,7 @@ Pull Request akan digunakan oleh asisten untuk memeriksa dan menilai tugas yang 
 Setiap praktikan wajib mengikuti struktur folder berikut:
 
 ```text
-LAB-AP-9-2026/
+LAB-AP-09-2026/
 │
 ├── H071261xxx/
 │   │
@@ -289,10 +289,10 @@ Jika sudah memahami seluruh alurnya, proses pengumpulan tugas secara singkat ada
 
 ```bash
 # Clone repositori hasil fork
-git clone https://github.com/<USERNAME_KAMU>/LAB-AP-9-2026.git
+git clone https://github.com/<USERNAME_KAMU>/LAB-AP-09-2026.git
 
 # Masuk ke folder repository
-cd LAB-AP-9-2026
+cd LAB-AP-09-2026
 
 # Buat branch sesuai NIM
 git checkout -b H071261xxx
@@ -304,7 +304,7 @@ mkdir Praktikum-1
 cd Praktikum-1
 
 # Kerjakan tugas, kemudian tambahkan file
-git add TP1_1_H071261xxx.py
+git add TP1_H071261xxx.py
 
 # Cek perubahan
 git status
