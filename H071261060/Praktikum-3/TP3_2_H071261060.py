@@ -14,7 +14,7 @@ while True:
                     continue
                 break
             except:
-                priint("Input hanya boleh angka")
+                print("Input hanya boleh angka")
         break
     except:
         print("Input baris harus berupa angka!")
