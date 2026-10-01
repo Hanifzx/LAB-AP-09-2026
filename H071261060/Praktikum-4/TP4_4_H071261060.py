@@ -1,4 +1,4 @@
-def konversi(suhu, asal: str, tujuan: str):
+def konversi(suhu, asal, tujuan):
     if asal == "C":
         if tujuan == "F":
             nilai = (suhu * 1.8) + 32
@@ -42,9 +42,9 @@ while True:
             skala_asal = input("Skala asal (C/F/K): ")
             skala_tujuan = input("Skala tujuan (C/F/K): ")
             if skala_asal != "C" and skala_asal != "F" and skala_asal != "K":
-                raise ValueError("Error")
+                raise
             if skala_tujuan != "C" and skala_tujuan != "F" and skala_tujuan != "K":
-                raise ValueError("Error")
+                raise
             konversi_akhir = konversi(suhu, skala_asal, skala_tujuan)
             print(f"Hasil: {suhu} {skala_asal} = {konversi_akhir} {skala_tujuan}")
         except:
