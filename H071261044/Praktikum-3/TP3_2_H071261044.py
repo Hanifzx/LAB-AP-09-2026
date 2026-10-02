@@ -20,8 +20,8 @@ while True:
 print("---Daftar Kursi Tersedia---")
 for baris in range(1, jumlah_baris+1):
     for kursi in range(1, jumlah_kursi+1):
-        # if kursi == 13:
-        #     continue
-        # if baris == 1 and kursi % 2 == 0:
-        #     continue
+        if kursi == 13:
+            continue
+        if baris == 1 and kursi % 2 == 0:
+            continue
         print(f"Baris {baris} - kursi {kursi}")
