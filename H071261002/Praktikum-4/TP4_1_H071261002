@@ -1,0 +1,41 @@
+def hitung_subtotal(harga, jumlah, adalah_member=False):
+    """Menghitung subtotal satu barang. Member dapat diskon 10%."""
+    subtotal = harga * jumlah
+    if adalah_member:
+        subtotal = round(subtotal * 0.9)
+    return subtotal
+
+
+print("Selamat datang di Kasir Minimarket!")
+
+while True:                                                         
+    status = input("Apakah Anda member? (y/n): ").strip().lower()
+    try:                                                             
+        if status not in ("y", "n"):                                 
+            raise ValueError("Jawaban harus y atau n.")              
+        break                                                      
+    except ValueError as e:                                          
+        print(f"Error: {e}")                                        
+
+member = (status == "y")
+
+total = 0
+while True:
+    nama = input("Masukkan nama barang (kosongkan untuk selesai): ")
+    if nama == "":
+        break
+
+    try:                                                            
+        harga = int(input("Harga barang: "))
+        jumlah = int(input("Jumlah barang: "))
+
+        if harga < 0 or jumlah < 0:                                 
+            raise ValueError("Harga dan jumlah tidak boleh negatif.")  
+
+        subtotal = hitung_subtotal(harga, jumlah, adalah_member=member)
+        print(f"Subtotal {nama}: Rp{subtotal}")
+        total += subtotal
+    except ValueError as e:                                         
+        print(f"Error: {e}")                                       
+
+print(f"Total belanja: Rp{total}")
