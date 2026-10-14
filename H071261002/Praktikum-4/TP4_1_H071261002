@@ -1,5 +1,5 @@
 def hitung_subtotal(harga, jumlah, adalah_member=False):
-    """Menghitung subtotal satu barang. Member dapat diskon 10%."""
+    # Menghitung subtotal satu barang. Member dapat diskon 10%.
     subtotal = harga * jumlah
     if adalah_member:
         subtotal = round(subtotal * 0.9)
