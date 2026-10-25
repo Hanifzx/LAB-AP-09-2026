@@ -1,0 +1,31 @@
+def rekap_nilai(*args):
+    # Menerima nilai dalam jumlah berapa pun.
+    # Mengembalikan (rata-rata, tertinggi, terendah).
+    tertinggi = max(args)
+    terendah = min(args)
+    rata_rata = sum(args) / len(args)
+    return rata_rata, tertinggi, terendah
+
+
+daftar_nilai = []
+while True:
+    masukan = input("Masukkan nilai ujian siswa (kosongkan untuk selesai): ")
+    if masukan == "":
+        break
+    try:                                                          
+        if float(masukan) < 0:                                     
+            raise ValueError("Nilai tidak boleh negatif.")        
+        daftar_nilai.append(float(masukan))
+    except ValueError as e:                                       
+        print(f"Error: {e}")                                      
+
+if len(daftar_nilai) == 0:                                        
+    print("Data nilai tidak tersedia.")
+else:
+    try:                                                          
+        rata, tertinggi, terendah = rekap_nilai(*daftar_nilai)
+        print(f"Rata-rata kelas: {rata}")
+        print(f"Nilai tertinggi: {tertinggi}")
+        print(f"Nilai terendah: {terendah}")
+    except ValueError as e:                                       
+        print(f"Error: {e}")                                      
