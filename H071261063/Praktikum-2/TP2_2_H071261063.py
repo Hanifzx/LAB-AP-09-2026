@@ -1,4 +1,4 @@
-# CONDITIONAL STATEMENT II
+ # CONDITIONAL STATEMENT II
 
 jarak = float(input("Masukkan jarak pengiriman (km): "))
 
