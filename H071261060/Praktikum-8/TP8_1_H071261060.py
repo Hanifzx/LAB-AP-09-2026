@@ -2,7 +2,7 @@ import re
 
 def Validasi(nim, email, telepon):
 
-    pattern_nim = r"^H071[0-9]{6,6}$"
+    pattern_nim = r"^H071\d{6}$"
     result_nim = re.match(pattern_nim, nim)
     if result_nim:
         result_nim = "Valid"
@@ -34,7 +34,7 @@ def Validasi(nim, email, telepon):
     if result_nim == "Valid" and result_email == "Valid" and result_telepon == "Valid":
         print("\nData mahasiswa berhasil diverifikasi!")
     else:
-        print("\n Data mahasiswa tidak berhasil diverifikasi!")
+        print("\nData mahasiswa tidak berhasil diverifikasi!")
 
 
 print("\n=== Validasi Data Mahasiswa ===\n")
