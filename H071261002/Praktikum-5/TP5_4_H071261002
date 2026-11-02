@@ -1,0 +1,85 @@
+def deteksi_anomali_email(email):
+    masalah = []
+
+    # Aturan 1: harus tepat satu @
+    if email.count("@") != 1:
+        masalah.append("Harus memiliki tepat satu karakter @.")
+        return masalah
+
+    bagian = email.split("@")        
+    local = bagian[0]
+    domain = bagian[1]
+
+    # Aturan 2: local & domain tidak boleh kosong
+    if local == "" or domain == "":
+        masalah.append("Bagian sebelum @ (local) atau setelah @ (domain) tidak boleh kosong.")
+
+    # Aturan 3: tidak boleh ada spasi
+    if " " in email:
+        masalah.append("Tidak boleh mengandung spasi.")
+
+    # Aturan 4: aturan titik pada bagian local
+    if local.startswith(".") or local.endswith(".") or ".." in local:
+        masalah.append("Bagian local tidak boleh diawali/diakhiri titik atau mengandung titik berurutan.")
+
+    # Aturan 5: aturan titik pada bagian domain
+    if domain.count(".") < 1:
+        masalah.append("Bagian domain wajib memiliki minimal satu titik.")
+    if ".." in domain or domain.endswith("."):
+        masalah.append("Bagian domain tidak boleh mengandung titik berurutan atau diakhiri titik.")
+
+    # Aturan 7: harus berakhiran domain resmi
+    email_kecil = email.lower()
+    if not (email_kecil.endswith(".com") or email_kecil.endswith(".id") or email_kecil.endswith(".ac.id")):
+        masalah.append("Wajib berakhiran dengan .com, .id, atau .ac.id")
+
+    return masalah
+
+def cetak_daftar(daftar_email_valid, karakter_border):
+    lebar = 0
+    for email in daftar_email_valid:         # cari email terpanjang
+        if len(email) > lebar:
+            lebar = len(email)
+
+    garis = "+" + karakter_border * (lebar + 2) + "+"
+    hasil = garis + "\n"                     
+    for email in daftar_email_valid:
+        hasil += "| " + email.ljust(lebar) + " |\n"
+    hasil += garis
+    return hasil
+
+print("--- Sistem Pencatatan email valid ---")
+border = input("Masukkan border dengan karakter bebas: ")
+if border == "":
+    border = "="                 
+border = border[0]             
+print()
+print("Ketik 'tutup' untuk mengakhiri masukan dan mencetak email.")
+
+email_valid = []                 
+while True:
+    email = input("Masukkan email: ")
+
+    if email.strip().lower() == "tutup":
+        break
+
+    masalah = deteksi_anomali_email(email)
+
+    # Aturan 6: cek duplikat (tidak membedakan huruf besar/kecil)
+    if len(masalah) == 0 and email.lower() in email_valid:
+        masalah.append("Email sudah terdaftar (Duplikat).")
+
+    if len(masalah) == 0:
+        email_valid.append(email.lower())
+        print(">> Email VALID!")
+    else:
+        print(">> Email DITOLAK karena:")
+        for pesan in masalah:
+            print("   -", pesan)
+
+print()
+print("--- HASIL EMAIL VALID ---")
+if len(email_valid) == 0:
+    print("(Belum ada email valid)")
+else:
+    print(cetak_daftar(email_valid, border))

@@ -1,8 +1,5 @@
-# SOAL 1 - PALINDROM TERPANJANG (versi diperbaiki & dirampingkan)
-
 ALFABET = "abcdefghijklmnopqrstuvwxyz"
 
-# Membuang selain huruf, lalu mengubah ke huruf kecil
 def bersihkan_teks(teks):
     hasil = ""
     for karakter in teks:
@@ -11,7 +8,6 @@ def bersihkan_teks(teks):
             hasil += huruf
     return hasil
 
-# Mengembalikan (True, -1) jika palindrom, atau (False, indeks_pertama_beda)
 def cek_palinrome(teks):
     terbalik = "".join(reversed(teks))
     if teks == terbalik:
@@ -27,9 +23,8 @@ def inti_palinrome(bersih):
     for i in range(len(bersih)):                 # titik awal potongan
         for j in range(i + 1, len(bersih) + 1):  # titik akhir potongan
             potongan = bersih[i:j]               # slicing
-            # cek panjang dulu (murah), baru cek palindrom (mahal)
             if len(potongan) > terbaik["panjang"]:
-                sudah_palindrom, _ = cek_palinrome(potongan)   # ambil True/False saja
+                sudah_palindrom, _ = cek_palinrome(potongan)            # ambil True/False saja
                 if sudah_palindrom:
                     terbaik = {"teks": potongan,
                                "panjang": len(potongan),
@@ -37,7 +32,7 @@ def inti_palinrome(bersih):
     return terbaik
 
 masukan = input("Masukkan teks prasasti: ")
-bersih = bersihkan_teks(masukan)                 # dibersihkan SEKALI saja
+bersih = bersihkan_teks(masukan)                 
 print()
 print("Teks Bersih:", bersih)
 print("Output Terharap:", inti_palinrome(bersih))
