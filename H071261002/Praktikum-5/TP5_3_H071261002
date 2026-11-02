@@ -1,0 +1,32 @@
+ALFABET = "abcdefghijklmnopqrstuvwxyz"
+
+def cek_sandi(ch, k):
+    nomor = ALFABET.find(ch.lower())      # cari posisi huruf di alfabet
+    if nomor == -1:                      
+        return ch
+    huruf_baru = ALFABET[(nomor + k) % 26]
+    if ch == ch.upper():                  # huruf aslinya kapital
+        return huruf_baru.upper()
+    return huruf_baru.lower()
+
+def mesin_enkripsi(teks, k):
+    hasil = ""
+    for karakter in teks:
+        hasil += cek_sandi(karakter, k)
+    return hasil
+
+def mesin_dekripsi(teks, k):
+    return mesin_enkripsi(teks, -k)
+
+def retas_sandi(sandi, kata_kunci):
+    hasil_valid = []
+    for kunci in range(26):                          # kunci 0, 1, ..., 25
+        percobaan = mesin_dekripsi(sandi, kunci)
+        if percobaan.lower().find(kata_kunci.lower()) != -1:
+            hasil_valid.append((kunci, percobaan))   # simpan sebagai tuple
+    return hasil_valid
+
+pesan = input("Masukkan pesan tersita (enkripsi Caesar): ")
+kunci_target = input("Masukkan kata kunci target: ")
+print()
+print("Output Deskripsi:", retas_sandi(pesan, kunci_target))

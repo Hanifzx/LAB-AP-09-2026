@@ -1,0 +1,155 @@
+import os 
+import random 
+from datetime import datetime 
+
+FOLDER_INVOICE = "invoices" 
+FILE_RIWAYAT = "trx_history.txt" 
+LEBAR_TABEL = 67 
+
+def input_angka(pesan):
+    # meminta angka bulat > 0. Mengulang terus sampai input benar
+    while True:
+        try:
+            nilai = int(input(pesan))
+            if nilai <= 0:
+                print("Angka harus lebih dari 0!\n")
+                continue
+            return nilai
+        except ValueError:
+            print("Input harus berupa angka!\n")
+
+def input_teks(pesan):
+    # Meminta teks yang tidak boleh kosong
+    while True:
+        teks = input(pesan).strip()
+        if teks != "":
+            return teks
+        print("Input tidak boleh kosong!\n")
+
+
+# 1. MEMBUAT INVOICE
+def buat_id_transaksi(nama_kasir, waktu):
+    # Susun ID: inisial + YY + MM + DD + HHMM + 3 angka acak.
+    inisial = "".join(kata[0] for kata in nama_kasir.split()).upper()
+    tanggal_waktu = waktu.strftime("%y%m%d%H%M")
+    acak = random.randint(100, 999)
+    return inisial + tanggal_waktu + str(acak)
+
+def simpan_invoice(id_trx, nama_kasir, waktu, daftar_produk, total):
+    # Menulis invoice ke invoices/<ID>.txt
+    os.makedirs(FOLDER_INVOICE, exist_ok=True) # 
+    path = os.path.join(FOLDER_INVOICE, id_trx + ".txt") # 
+
+    with open(path, "w") as f: # b, t, o
+        f.write("=" * 50 + "\n") 
+        f.write("INVOICE".center(50) + "\n") # 
+        f.write("=" * 50 + "\n")
+        f.write("ID Transaksi : " + id_trx + "\n")
+        f.write("Waktu        : " + waktu.strftime("%Y-%m-%d %H:%M:%S") + "\n")
+        f.write("Kasir        : " + nama_kasir + "\n")
+        f.write("-" * 50 + "\n")
+        f.write(f"{'Produk':<18}{'Harga':>9}{'Jml':>5}{'Subtotal':>13}\n")
+        f.write("-" * 50 + "\n")
+        for nama, harga, jumlah in daftar_produk:
+            f.write(f"{nama:<18}{harga:>9}{jumlah:>5}{harga * jumlah:>13}\n")
+        f.write("-" * 50 + "\n")
+        f.write(f"{'TOTAL':<32}{'Rp. ' + str(total):>18}\n")
+        f.write("=" * 50 + "\n")
+    return path
+
+
+# 3. RIWAYAT TRANSAKSI
+def baris_tabel(waktu, id_trx, nominal):
+    return f"| {waktu:<19} | {id_trx:<20} | {nominal:<18} |\n"
+
+def catat_riwayat(waktu, id_trx, total):
+    # Menambah 1 baris ke trx_history.txt (mode append)
+    garis = "=" * LEBAR_TABEL + "\n"
+    file_baru = not os.path.exists(FILE_RIWAYAT) # 
+
+    with open(FILE_RIWAYAT, "a") as f: # + 
+        if file_baru:  
+            f.write(garis)
+            f.write(baris_tabel("Waktu", "ID Transaksi", "Nominal Transaksi"))
+            f.write(garis)
+        f.write(baris_tabel(waktu.strftime("%Y-%m-%d %H:%M:%S"),
+                            id_trx, "Rp. " + str(total)))
+        f.write(garis)
+
+def lihat_riwayat():
+    try:
+        with open(FILE_RIWAYAT, "r") as f:
+            print("\n" + f.read())
+    except FileNotFoundError:
+        print("\nBelum ada riwayat transaksi.\n")
+
+
+# MENU TRANSAKSI BARU
+def transaksi_baru():
+    print("\n=== TRANSAKSI BARU ===\n")
+    nama_kasir = input_teks("Nama kasir      : ")
+
+    daftar_produk = []
+    while True:
+        print("\n--- Produk ke-" + str(len(daftar_produk) + 1) + " ---")
+        nama = input_teks("Nama produk     : ")
+        harga = input_angka("Harga produk    : ")
+        jumlah = input_angka("Jumlah dibeli   : ")
+        daftar_produk.append((nama, harga, jumlah))
+
+        lagi = input("\nTambah produk lain? (y/n): ").strip().lower()
+        if lagi != "y":
+            break
+
+    total = sum(harga * jumlah for _, harga, jumlah in daftar_produk)
+    waktu = datetime.now()
+    id_trx = buat_id_transaksi(nama_kasir, waktu)
+
+    simpan_invoice(id_trx, nama_kasir, waktu, daftar_produk, total)
+    catat_riwayat(waktu, id_trx, total)
+
+    print("\nTransaksi berhasil!")
+    print("ID Transaksi : " + id_trx)
+    print("Total        : Rp. " + str(total))
+    print("Invoice disimpan di " + os.path.join(FOLDER_INVOICE, id_trx + ".txt") + "\n")
+
+
+# 2. MENCARI INVOICE
+def cari_invoice():
+    print("\n=== CARI INVOICE ===\n")
+    id_trx = input_teks("Masukkan ID transaksi: ").upper()
+    path = os.path.join(FOLDER_INVOICE, id_trx + ".txt")
+
+    try:
+        with open(path, "r") as f: #
+            print("\n" + f.read())
+    except FileNotFoundError: # 
+        print("\nInvoice dengan ID " + id_trx + " tidak ditemukan.\n")
+
+
+# main program
+def main():
+    while True:
+        print("=" * 30)
+        print("      APLIKASI KASIR")
+        print("=" * 30)
+        print("1. Transaksi baru")
+        print("2. Cari invoice")
+        print("3. Lihat riwayat transaksi")
+        print("4. Keluar\n")
+        pilihan = input("Pilih menu (1-4): ").strip()
+
+        if pilihan == "1":
+            transaksi_baru()
+        elif pilihan == "2":
+            cari_invoice()
+        elif pilihan == "3":
+            lihat_riwayat()
+        elif pilihan == "4":
+            print("\nTerima kasih!\n")
+            break
+        else:
+            print("\nPilihan tidak valid!\n")
+
+if __name__ == "__main__": 
+    main()
