@@ -18,12 +18,7 @@ class Pemain:
             return "Perlu Evaluasi"
 
     def tampilkan_data(self):
-        skor = self.hitung_skor_akhir()
-        status = self.status_peforma()
-        return f" {self.nama}".ljust(12) + " | " + self.id_pemain.ljust(10) + " | " + self.role.ljust(10) + " | " + f"{skor}".ljust(10) + " | " + status.ljust(16) + " |"
-
-    def get_id(self): # Method ini digunakan untuk mengambil id
-        return self.id_pemain
+        return f" {self.nama}".ljust(12) + " | " + self.id_pemain.ljust(10) + " | " + self.role.ljust(10) + " | " + self.hitung_skor_akhir().ljust(10) + " | " + self.status_peforma().ljust(16) + " |"
 
     def pemain_ditemukan(self): # Method ini digunakan untuk mengeluarkan ouput dari pemain yang dicari
         print("\nNama".ljust(12) + f": {self.nama}")
@@ -79,13 +74,15 @@ while True:
         id_dicari = input("\nMasukkan ID yang ingin dicari: ")
         maka_ditemukan = False
         for i in data_pemain:
-            if i.get_id() == id_dicari:
+            if i.id_pemain == id_dicari: # Mengganti dari get_id() dengan langung menggunakan id_pemain
                 print("\nData Pemain Ditemukan!")
                 i.pemain_ditemukan()
                 maka_ditemukan = True
         if maka_ditemukan == False:
             print("Pemain tidak ditemukan!")
     elif pilihan == 3: #Conditional untuk pilihan ke 3, disini terdapat looping untuk menambahkan variable-variable yang sesuai
+        if not data_pemain: # Menambahkan conditional ketika belum ada pemain yang di input
+            print("\nBelum ada pemain terisi")
         total_pemain = 0
         pemain_unggul = 0
         pemain_evaluasi = 0
@@ -107,10 +104,13 @@ while True:
         print("Input yang anda masukkan tida valid!")
         continue
 
-print("\n--- REKAPITULASI PERFORMA PEMAIN ---")
-print("=" * 78)
-print("| " + "No".ljust(3) + "|" + " Nama".ljust(12) + " | " + "ID Pemain".ljust(10) + " | " + "Role".ljust(10) + " | " + "Skor Akhir".ljust(10) + " | " + "Status".ljust(16) + " |")
-print("=" * 78)
-for i, isi in enumerate(data_pemain, start=1):
-    print(f"| {i}  |" + isi.tampilkan_data())
-print("=" * 78)
+if data_pemain:
+    print("\n--- REKAPITULASI PERFORMA PEMAIN ---")
+    print("=" * 78)
+    print("| " + "No".ljust(3) + "|" + " Nama".ljust(12) + " | " + "ID Pemain".ljust(10) + " | " + "Role".ljust(10) + " | " + "Skor Akhir".ljust(10) + " | " + "Status".ljust(16) + " |")
+    print("=" * 78)
+    for i, isi in enumerate(data_pemain, start=1):
+        print(f"| {i}  |" + isi.tampilkan_data())
+    print("=" * 78)
+else: # Menambahkan conditional ketika belum ada pemain yang di input
+    print("\nBelum ada pemain terisi")
