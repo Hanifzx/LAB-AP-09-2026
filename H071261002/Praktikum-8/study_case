@@ -12,7 +12,6 @@ daftar_password= [
 ]
 
 pola = r"^[A-Z]{1}[a-z]{3}-(X99|Y88|Z77)\d{2,4}[\*\+\$]{2}$"
-
 print("=== SISTEM KEAMANAN SERVER ===\n")
 
 for password in daftar_password:
