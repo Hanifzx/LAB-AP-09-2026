@@ -1,0 +1,47 @@
+class Pemain:
+
+    def __init__(self, nama, role, skor_akhir):
+        self.nama = nama
+        self.role = role
+        self.skor_akhir = skor_akhir
+        self.status = self.tentukan_status()
+        self.level = None # 
+        self.tentukan_level()  # dipanggil otomatis
+
+    def tentukan_status(self):
+        if self.skor_akhir >= 60:
+            return "Unggul"
+        else:
+            return "Perlu Evaluasi"
+
+    def tentukan_level(self):
+        if self.skor_akhir >= 85:
+            self.level = "Diamond"
+        elif self.skor_akhir >= 70:
+            self.level = "Platinum"
+        elif self.skor_akhir >= 60:
+            self.level = "Gold"
+        else:
+            self.level = "Bronze"
+
+    def tampilkan_data(self, nomor):
+        print(f"{nomor:<2} | {self.nama:<6} | {self.role:<8} | {self.skor_akhir:<10.2f} | {self.status:<14} | {self.level}")
+
+
+def main():
+    daftar_pemain = [
+        Pemain("Shadow", "Assassin", 82.50),
+        Pemain("Blaze", "Tank", 55.00),
+        Pemain("Viper", "Marksman", 90.00),
+    ]
+
+    print("=== REKAPITULASI PERFORMA PEMAIN ===")
+    print(f"{'No':<2} | {'Nama':<6} | {'Role':<8} | {'Skor Akhir':<10} | {'Status':<14} | {'Level'}")
+    print("-" * 65)
+
+    for index, pemain in enumerate(daftar_pemain, start=1):
+        pemain.tampilkan_data(index)
+
+
+if __name__ == "__main__":
+    main()
